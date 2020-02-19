@@ -1,0 +1,19 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: monitoring-pili
+  namespace: monitoring
+  labels:
+    app: pili-service-monitor
+spec:
+  selector:
+    matchLabels:
+      # Target app service
+      app: pili
+  endpoints:
+  - interval: 15s
+    path: /metrics
+    port: uwsgi
+  namespaceSelector:
+    matchNames:
+    - default
